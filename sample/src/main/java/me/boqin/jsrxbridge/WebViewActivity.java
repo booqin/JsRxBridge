@@ -7,6 +7,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import me.boqin.jsrxbridge.api.JavaApi;
 import me.boqin.jsrxbridge.api.JsApis;
@@ -25,20 +26,24 @@ public class WebViewActivity extends Activity{
 
     private JsApis jsApiDemo;
 
+    private Disposable mDisposable;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         mWebView = findViewById(R.id.web_view);
-        mJsBridge = new JsRxBridge.JsRxBridgeBuilder().registerToJavaHandler(JavaApi.UserInfoHandler).build(mWebView);
-        jsApiDemo = mJsBridge.create(JsApis.class);
+        initJsBridge(mWebView);
         mWebView.loadUrl("file:///android_asset/JSRxBridgeDemo.html");
         findViewById(R.id.bt_change).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UserInfoBean userInfoBean = new UserInfoBean();
                 userInfoBean.name = "hello js";
-                jsApiDemo.notifyUserInfoChange(userInfoBean).subscribe(new Consumer<RespBean>() {
+                if (mDisposable!=null) {
+                    mDisposable.dispose();
+                }
+                mDisposable = jsApiDemo.notifyUserInfoChange(userInfoBean).subscribe(new Consumer<RespBean>() {
                     @Override
                     public void accept(RespBean s) throws Exception {
                         Toast.makeText(WebViewActivity.this, s.getName(), Toast.LENGTH_SHORT).show();
@@ -49,8 +54,24 @@ public class WebViewActivity extends Activity{
                         throwable.printStackTrace();
                     }
                 });
-//                jsApiDemo.notifyUserInfoChange(userInfoBean);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mJsBridge.onDestroy();
+        if (mDisposable!=null) {
+            mDisposable.dispose();
+        }
+    }
+
+    private void initJsBridge(WebView webView) {
+        mJsBridge = new JsRxBridge.JsRxBridgeBuilder()
+                .registerToJavaHandler(JavaApi.UserInfoHandler)
+                .registerToJavaHandler(JavaApi.getLoginHandler(this))
+                .build(webView);
+        jsApiDemo = mJsBridge.create(JsApis.class);
     }
 }

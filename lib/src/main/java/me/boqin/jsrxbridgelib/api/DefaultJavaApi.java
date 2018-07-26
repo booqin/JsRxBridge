@@ -1,7 +1,7 @@
 package me.boqin.jsrxbridgelib.api;
 
 import me.boqin.jsrxbridgelib.interfaces.CallBackFunction;
-import me.boqin.jsrxbridgelib.interfaces.IXGToJavaHandler;
+import me.boqin.jsrxbridgelib.interfaces.IBToJavaHandler;
 
 import static me.boqin.jsrxbridgelib.interfaces.IJavascriptInterface.CALL_BACK_FROM_JS;
 
@@ -13,7 +13,7 @@ import static me.boqin.jsrxbridgelib.interfaces.IJavascriptInterface.CALL_BACK_F
 public class DefaultJavaApi {
 
 
-    public static IXGToJavaHandler CallBack = new IXGToJavaHandler() {
+    public static IBToJavaHandler CallBack = new IBToJavaHandler() {
         @Override
         public String getMethodName() {
             return CALL_BACK_FROM_JS;

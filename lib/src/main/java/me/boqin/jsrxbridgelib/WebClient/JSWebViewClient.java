@@ -13,7 +13,7 @@ import me.boqin.jsrxbridgelib.utils.BridgeUtil;
 
 public class JSWebViewClient extends WebViewClient{
 
-    private static final String TO_LOAD_JS = "XGJSBridge.js";
+    private static final String TO_LOAD_JS = "JSRxBridge.js";
 
     private String mToLoadJs;
 

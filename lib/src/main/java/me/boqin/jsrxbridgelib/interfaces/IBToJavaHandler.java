@@ -7,7 +7,7 @@ package me.boqin.jsrxbridgelib.interfaces;
  *
  * @Version
  */
-public interface IXGToJavaHandler {
+public interface IBToJavaHandler {
     /**
      * 接口名，提供给Js端调用
      * @return 对应的接口名

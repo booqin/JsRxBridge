@@ -11,9 +11,9 @@ import java.util.Map;
 
 import me.boqin.jsrxbridgelib.interfaces.CallBackFunction;
 import me.boqin.jsrxbridgelib.interfaces.IJavascriptInterface;
-import me.boqin.jsrxbridgelib.interfaces.IXGInterceptor;
-import me.boqin.jsrxbridgelib.interfaces.IXGToJavaHandler;
-import me.boqin.jsrxbridgelib.interfaces.IXGToJsHandler;
+import me.boqin.jsrxbridgelib.interfaces.IBInterceptor;
+import me.boqin.jsrxbridgelib.interfaces.IBToJavaHandler;
+import me.boqin.jsrxbridgelib.interfaces.IBToJsHandler;
 
 
 /**
@@ -22,15 +22,15 @@ import me.boqin.jsrxbridgelib.interfaces.IXGToJsHandler;
 
 public class JavascriptInterfaceImpl implements IJavascriptInterface {
 
-    private Map<String, IXGToJavaHandler> mNativeCallMap;
-    private List<IXGInterceptor> mInterceptorList;
+    private Map<String, IBToJavaHandler> mNativeCallMap;
+    private List<IBInterceptor> mInterceptorList;
 
-    private IXGToJsHandler mJavaCallHandler;
+    private IBToJsHandler mJavaCallHandler;
     private IJavascriptInterface mDefaultHandler;
     private Handler mMainHandler;
     private Runnable mMainRunnable;
 
-    public JavascriptInterfaceImpl(IXGToJsHandler javaCallHandler){
+    public JavascriptInterfaceImpl(IBToJsHandler javaCallHandler){
         mNativeCallMap = new HashMap<>();
         mInterceptorList = new ArrayList<>();
         mJavaCallHandler = javaCallHandler;
@@ -40,14 +40,14 @@ public class JavascriptInterfaceImpl implements IJavascriptInterface {
     /**
      * add interceptor
      */
-    public void addInterceptor(IXGInterceptor interceptor){
+    public void addInterceptor(IBInterceptor interceptor){
         mInterceptorList.add(interceptor);
     }
 
     /**
      * 添加JS端调用的java的接口
      */
-    public void addCall(IXGToJavaHandler ixgBridgeHandler){
+    public void addCall(IBToJavaHandler ixgBridgeHandler){
         if (ixgBridgeHandler == null) {
             return;
         }
@@ -65,7 +65,7 @@ public class JavascriptInterfaceImpl implements IJavascriptInterface {
             @Override
             public void run() {
                 boolean isFilter = false; //是否过滤
-                for (IXGInterceptor javaApiInterceptor : mInterceptorList) {
+                for (IBInterceptor javaApiInterceptor : mInterceptorList) {
                     isFilter |= javaApiInterceptor.intercept(event, callbackId, paramsString, mJavaCallHandler);
                 }
                 if (!isFilter) { //是否过滤

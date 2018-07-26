@@ -2,8 +2,6 @@ package me.boqin.jsrxbridgelib;
 
 import android.util.Log;
 
-import com.google.gson.TypeAdapter;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -15,7 +13,7 @@ import me.boqin.jsrxbridgelib.handler.JsParamHandler;
 import me.boqin.jsrxbridgelib.interfaces.CallBackFunction;
 import me.boqin.jsrxbridgelib.interfaces.ICallAdapter;
 import me.boqin.jsrxbridgelib.interfaces.IParamHandler;
-import me.boqin.jsrxbridgelib.interfaces.IXGToJsHandler;
+import me.boqin.jsrxbridgelib.interfaces.IBToJsHandler;
 
 /**
  * 以方法为处理单位
@@ -31,7 +29,7 @@ public class ServiceMethod{
 
     private JsCallBack mJsCallBack;
 
-    private IXGToJsHandler mIxgToJsHandler;
+    private IBToJsHandler mIBToJsHandler;
     private String mName;
     private Object[] mArgs;
 
@@ -43,10 +41,10 @@ public class ServiceMethod{
 
 
 
-    public ServiceMethod(Method method, Map<String, CallBackFunction> map,IXGToJsHandler ixgToJsHandler, String name, Object[] args){
+    public ServiceMethod(Method method, Map<String, CallBackFunction> map,IBToJsHandler IBToJsHandler, String name, Object[] args){
         //JsRxBridge.this, name, args
         mCallBackMap = map;
-        mIxgToJsHandler = ixgToJsHandler;
+        mIBToJsHandler = IBToJsHandler;
         mName = name;
         mArgs = args;
 
@@ -75,7 +73,7 @@ public class ServiceMethod{
      */
     public void apply(){
         if (mParamHandler!=null) {
-            mParamHandler.apply(mIxgToJsHandler, mName, mArgs);
+            mParamHandler.apply(mIBToJsHandler, mName, mArgs);
         }
     }
 

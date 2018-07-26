@@ -26,84 +26,9 @@
 	<br />
 	<br />
 
-	<div>
-		<text style="color: #3CB371">优惠券id</text>
-		<input id="button_getCoupon" placeholder="请输入优惠券" type="text" value="">
-	</div>
-	<div id="couponResult" style="color: #A9A9A9">优惠领取结果：</div>
-	<button type="button" onclick="button_getCoupon();">点击领取优惠券</button>
-	<br />
-	<br />
-	<br />
-
-	<div class="main-search">
-		<text style="color: #3CB371">跳转链接</text>
-		<input id="button_linkTo" placeholder="请输入跳转链接" type="text" value="sjyx://webpage?url=http://www.baidu.com">
-	</div>
-	<button type="button" onclick="button_linkTo();">路由跳转任意链接</button>
-
-	<br />
-	<br />
-	<br />
-
-	<div class="main-search">
-		<text style="color: #3CB371">店铺id</text>
-		<input id="shopid" placeholder="请输入店铺id" type="text" value="7044">
-	</div>
-	<div class="main-search">
-		<text style="color: #3CB371">商品id</text>
-		<input id="spuid" placeholder="请输入商品id" type="text" value="201807243610427392">
-	</div>
-	<button type="button" onclick="button_linkToSpu();">跳转商品</button>
 </div>
 
 <script>
-	//点击商品
-	function button_linkToSpu(){
-		if(!window.XGJSBridge){
-			document.getElementById('J_tip').innerHTML = '您当前不在app内，请前往下载四季严选app';
-			return;
-		}
-		var shopid =  document.getElementById('shopid').value;
-		var spuid =  document.getElementById('spuid').value;
-		if(!shopid){
-			alert("店铺id不能为空");
-			return;
-		}
-		if(!spuid){
-			alert("商品id不能为空");
-			return;
-		}
-		window.XGJSBridge.invoke("spudetail",{shopId: shopid,spuId: spuid});
-	}
-
-	//点击链接跳转
-	function button_linkTo(){
-		if(!window.XGJSBridge){
-			document.getElementById('J_tip').innerHTML = '您当前不在app内，请前往下载四季严选app';
-			return;
-		}
-		var link =  document.getElementById('button_linkTo').value;
-		if(!link){
-			alert("跳转链接不能为空");
-			return;
-		}
-		window.XGJSBridge.invoke("linkTo",{link: link});
-	}
-
-	//点击领取优惠券
-	function button_getCoupon(){
-		if(!window.XGJSBridge){
-			document.getElementById('J_tip').innerHTML = '您当前不在app内，请前往下载四季严选app';
-			return;
-		}
-		var couponId =  document.getElementById('button_getCoupon').value;
-		if(!couponId){
-			alert("优惠券id不能为空");
-			return;
-		}
-		window.XGJSBridge.invoke("getCoupon",{couponId: couponId},null)
-	}
 
 	//收到App发出的用户信息变化了
     function receiveUserInfo(info, callbackId){
@@ -113,32 +38,32 @@
 
 	//点击登录
     function button_loginClick(){
-		if(!window.XGJSBridge){
-			document.getElementById('J_tip').innerHTML = '您当前不在app内，请前往下载四季严选app';
+		if(!window.JSRxBridge){
+			document.getElementById('J_tip').innerHTML = '您当前不在app内，请前往下载app';
 			return;
 		}
-        window.XGJSBridge.invoke('login');
+        window.JSRxBridge.invoke('login');
     }
 
 	//点击获取用户信息
     function button_getUserInfo(){
-		if(!window.XGJSBridge){
+		if(!window.JSRxBridge){
 			document.getElementById('J_tip').innerHTML = '您当前不在app内，请前往下载四季严选app';
 			return;
 		}
-		window.XGJSBridge.invoke("getUserInfo",{schema: "sjyx"},receiveUserInfo)
+		window.JSRxBridge.invoke("getUserInfo",{schema: "sjyx"},receiveUserInfo)
     }
 
 	//判断当前是否处于web容器中
 	function judgeIsAppWeb(){
-        document.getElementById('J_tip').innerHTML = window.XGJSBridge ? '当前页面在App中' : '当前页面不在App中';
-		window.XGJSBridge && button_getUserInfo();
-        window.XGJSBridge && window.XGJSBridge.subscribe('userInfoChange',receiveUserInfo);
+        document.getElementById('J_tip').innerHTML = window.JSRxBridge ? '当前页面在App中' : '当前页面不在App中';
+		window.JSRxBridge && button_getUserInfo();
+        window.JSRxBridge && window.JSRxBridge.subscribe('userInfoChange',receiveUserInfo);
 	}
 
 	//由于在高版本中jsBridge的初始化需要在页面加载后才能运行，所以需要在html添加监听
 	function connectNative(callback){
-		if (window.XGJSBridge) {
+		if (window.JSRxBridge) {
 			callback && callback();
         } else {
             document.addEventListener(

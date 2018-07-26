@@ -3,8 +3,11 @@ package me.boqin.jsrxbridge.api;
 
 import java.util.HashMap;
 
+import android.content.Context;
+import android.content.Intent;
+import me.boqin.jsrxbridge.LoginActivity;
 import me.boqin.jsrxbridgelib.interfaces.CallBackFunction;
-import me.boqin.jsrxbridgelib.interfaces.IXGToJavaHandler;
+import me.boqin.jsrxbridgelib.interfaces.IBToJavaHandler;
 import me.boqin.jsrxbridgelib.utils.JsonUtil;
 
 /**
@@ -16,7 +19,7 @@ import me.boqin.jsrxbridgelib.utils.JsonUtil;
  */
 public abstract class JavaApi {
 
-    public static IXGToJavaHandler UserInfoHandler = new IXGToJavaHandler() {
+    public static IBToJavaHandler UserInfoHandler = new IBToJavaHandler() {
 
         @Override
         public String getMethodName() {
@@ -29,6 +32,27 @@ public abstract class JavaApi {
             map.put("name", "BQ");
             function.onCallBack(JsonUtil.toJsonString(map));
         }
+
     };
+
+    public static IBToJavaHandler getLoginHandler(final Context context){
+        return new IBToJavaHandler() {
+
+            @Override
+            public String getMethodName() {
+                return "login";
+            }
+
+            @Override
+            public void handler(String data, CallBackFunction function) {
+
+                context.startActivity(new Intent(context, LoginActivity.class));
+
+            }
+
+        };
+    }
+
+
 
 }

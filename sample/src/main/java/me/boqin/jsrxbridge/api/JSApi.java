@@ -2,7 +2,7 @@ package me.boqin.jsrxbridge.api;
 
 import java.util.HashMap;
 
-import me.boqin.jsrxbridgelib.interfaces.IXGToJsHandler;
+import me.boqin.jsrxbridgelib.interfaces.IBToJsHandler;
 import me.boqin.jsrxbridgelib.utils.JsonUtil;
 
 /**
@@ -14,9 +14,9 @@ import me.boqin.jsrxbridgelib.utils.JsonUtil;
 @Deprecated
 public class JSApi {
 
-    private IXGToJsHandler mJavaCallHandler;
+    private IBToJsHandler mJavaCallHandler;
 
-    public JSApi(IXGToJsHandler javaCallHandler){
+    public JSApi(IBToJsHandler javaCallHandler){
         mJavaCallHandler = javaCallHandler;
     }
 

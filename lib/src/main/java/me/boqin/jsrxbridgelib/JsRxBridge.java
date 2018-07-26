@@ -21,20 +21,20 @@ import me.boqin.jsrxbridgelib.WebClient.JSWebViewClient;
 import me.boqin.jsrxbridgelib.annotations.JsName;
 import me.boqin.jsrxbridgelib.interfaces.CallBackFunction;
 import me.boqin.jsrxbridgelib.interfaces.IJavascriptInterface;
-import me.boqin.jsrxbridgelib.interfaces.IXGInterceptor;
-import me.boqin.jsrxbridgelib.interfaces.IXGToJavaHandler;
-import me.boqin.jsrxbridgelib.interfaces.IXGToJsHandler;
+import me.boqin.jsrxbridgelib.interfaces.IBInterceptor;
+import me.boqin.jsrxbridgelib.interfaces.IBToJavaHandler;
+import me.boqin.jsrxbridgelib.interfaces.IBToJsHandler;
 
 /**
  * Created by vitozhang on 2018/6/29.
  */
 
-public class JsRxBridge implements IXGToJsHandler {
+public class JsRxBridge implements IBToJsHandler {
 
     private static final String XGJS = "XGJSCore";
-    private static final String NOTIFY_SUBSCRIBE_HANDLE = "javascript:XGJSBridge.subscribeHandler('%s','%s')";
-    private static final String NOTIFY_SUBSCRIBE_WITH_CALLBACK_HANDLE = "javascript:XGJSBridge.subscribeHandler('%s','%s', '%s')";
-    private static final String INVOKE_CALLBACK_HANDLE = "javascript:XGJSBridge.invokeCallbackHandler('%s','%s')";
+    private static final String NOTIFY_SUBSCRIBE_HANDLE = "javascript:JSRxBridge.subscribeHandler('%s','%s')";
+    private static final String NOTIFY_SUBSCRIBE_WITH_CALLBACK_HANDLE = "javascript:JSRxBridge.subscribeHandler('%s','%s', '%s')";
+    private static final String INVOKE_CALLBACK_HANDLE = "javascript:JSRxBridge.invokeCallbackHandler('%s','%s')";
 
 
     private WebView mWebView;
@@ -79,11 +79,11 @@ public class JsRxBridge implements IXGToJsHandler {
 
     }
 
-    public void registerJsCallHandler(IXGToJavaHandler ixgBridgeHandler){
+    public void registerJsCallHandler(IBToJavaHandler ixgBridgeHandler){
         mJavascriptInterface.addCall(ixgBridgeHandler);
     }
 
-    public void registerInterceptor(IXGInterceptor javaApiInterceptor){
+    public void registerInterceptor(IBInterceptor javaApiInterceptor){
         mJavascriptInterface.addInterceptor(javaApiInterceptor);
     }
 
@@ -198,12 +198,12 @@ public class JsRxBridge implements IXGToJsHandler {
             mJsRxBridge = new JsRxBridge();
         }
 
-        public JsRxBridgeBuilder registerToJavaHandler(IXGToJavaHandler ixgBridgeHandler){
+        public JsRxBridgeBuilder registerToJavaHandler(IBToJavaHandler ixgBridgeHandler){
             mJsRxBridge.registerJsCallHandler(ixgBridgeHandler);
             return this;
         }
 
-        public JsRxBridgeBuilder registerInterceptor(IXGInterceptor javaApiInterceptor){
+        public JsRxBridgeBuilder registerInterceptor(IBInterceptor javaApiInterceptor){
             mJsRxBridge.registerInterceptor(javaApiInterceptor);
             return this;
         }

@@ -7,5 +7,5 @@ package me.boqin.jsrxbridgelib.interfaces;
 
 public interface IParamHandler {
 
-    void apply(IXGToJsHandler ixgToJsHandler, String name, Object[] params);
+    void apply(IBToJsHandler IBToJsHandler, String name, Object[] params);
 }

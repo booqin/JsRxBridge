@@ -2,7 +2,7 @@ package me.boqin.jsrxbridgelib.handler;
 
 import android.util.Log;
 
-import me.boqin.jsrxbridgelib.interfaces.IXGToJsHandler;
+import me.boqin.jsrxbridgelib.interfaces.IBToJsHandler;
 import me.boqin.jsrxbridgelib.interfaces.IParamHandler;
 import me.boqin.jsrxbridgelib.utils.JsonUtil;
 
@@ -22,9 +22,9 @@ public class JsParamHandler implements IParamHandler {
     }
 
     @Override
-    public void apply(IXGToJsHandler ixgToJsHandler, String name, Object[] params) {
+    public void apply(IBToJsHandler IBToJsHandler, String name, Object[] params) {
         String paramsJson = JsonUtil.toJsonString(params[mIndex]);
         Log.d("BQ", "paramsJson:"+paramsJson);
-        ixgToJsHandler.notify(name, paramsJson, mCallBackId);
+        IBToJsHandler.notify(name, paramsJson, mCallBackId);
     }
 }
