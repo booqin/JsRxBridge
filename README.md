@@ -86,7 +86,7 @@ __JSRxBridge__ 中提供了setWebViewClient和setWebChromeClient来替代原WebV
 
 ## TODO
 
-- 目前只支持targetSDK 22的版本，需要解决高版本兼容的问题
+- ~~目前只支持targetSDK 24以下版本（不包括24），需要解决高版本兼容的问题~~
 
 - 协议依赖@JavascriptInterface，所以在4.2以下存在风险
 
