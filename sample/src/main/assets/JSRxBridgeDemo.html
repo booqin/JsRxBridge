@@ -135,7 +135,23 @@
 		window.XGJSBridge && button_getUserInfo();
         window.XGJSBridge && window.XGJSBridge.subscribe('userInfoChange',receiveUserInfo);
 	}
-	judgeIsAppWeb();
+
+	//由于在高版本中jsBridge的初始化需要在页面加载后才能运行，所以需要在html添加监听
+	function connectNative(callback){
+		if (window.XGJSBridge) {
+			callback && callback();
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function() {
+                    callback && callback();
+                },
+                false
+            );
+        }
+	}
+
+	connectNative(judgeIsAppWeb);
 
 
 </script>

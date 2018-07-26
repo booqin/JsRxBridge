@@ -25,7 +25,6 @@ import me.boqin.jsrxbridgelib.interfaces.IXGInterceptor;
 import me.boqin.jsrxbridgelib.interfaces.IXGToJavaHandler;
 import me.boqin.jsrxbridgelib.interfaces.IXGToJsHandler;
 
-
 /**
  * Created by vitozhang on 2018/6/29.
  */
@@ -64,6 +63,7 @@ public class JsRxBridge implements IXGToJsHandler {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+
         mWebView.setWebViewClient(generateBridgeWebViewClient());
         mWebView.addJavascriptInterface(mJavascriptInterface, XGJS);
 
@@ -75,6 +75,7 @@ public class JsRxBridge implements IXGToJsHandler {
         settings.setDomStorageEnabled(true);
 
         registerInterceptor(new CallBackInterceptor(mCallBacks));
+
 
     }
 

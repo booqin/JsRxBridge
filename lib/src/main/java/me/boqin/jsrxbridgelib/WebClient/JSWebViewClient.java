@@ -34,12 +34,12 @@ public class JSWebViewClient extends WebViewClient{
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
-        BridgeUtil.webViewLoadLocalJs(view, mToLoadJs);
     }
 
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
+        BridgeUtil.webViewLoadLocalJs(view, mToLoadJs);
     }
 
 

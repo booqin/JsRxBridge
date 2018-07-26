@@ -1,1 +1,1 @@
-include ':sample', ':jsrxbridgelib'
+include ':sample', ':lib'
